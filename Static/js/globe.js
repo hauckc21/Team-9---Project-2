@@ -21,7 +21,6 @@ enableRotation();
 function drawGlobe() {
     d3.queue()
         .defer(d3.json, 'https://gist.githubusercontent.com/mbostock/4090846/raw/d534aba169207548a8a3d670c9c2cc719ff05c47/world-110m.json')
-        .defer(d3.json, 'locations.json')   // will need to replace our path here???
         .await((error, worldData, locationData) => {
             svg.selectAll(".segment")
                 .data(topojson.feature(worldData, worldData.objects.countries).features)
@@ -33,7 +32,6 @@ function drawGlobe() {
                 .style("fill", (d, i) => '#e5e5e5')
                 .style("opacity", ".6");
             locations = locationData;
-            drawMarkers();
         });
 }
 
@@ -53,27 +51,5 @@ function enableRotation() {
     d3.timer(function (elapsed) {
         projection.rotate([config.speed * elapsed - 120, config.verticalTilt, config.horizontalTilt]);
         svg.selectAll("path").attr("d", path);
-        drawMarkers();
-    });
-}
-
-function drawMarkers() {
-    const markers = markerGroup.selectAll('circle')
-        .data(locations);
-    markers
-        .enter()
-        .append('circle')
-        .merge(markers)
-        .attr('cx', d => projection([d.longitude, d.latitude])[0])
-        .attr('cy', d => projection([d.longitude, d.latitude])[1])
-        .attr('fill', d => {
-            const coordinate = [d.longitude, d.latitude];
-            gdistance = d3.geoDistance(coordinate, projection.invert(center));
-            return gdistance > 1.57 ? 'none' : 'steelblue';
-        })
-        .attr('r', 7);
-
-    markerGroup.each(function () {
-        this.parentNode.appendChild(this);
     });
 }
