@@ -2,6 +2,7 @@
 from flask import Flask
 from flask import render_template 
 from flask import jsonify
+from flask import request
 
 # Import the functions we need from SQL Alchemy
 import sqlalchemy
@@ -12,7 +13,7 @@ from sqlalchemy import create_engine
 # Define the database connection parameters
 username = 'postgres'  # Ideally this would come from config.py (or similar)
 password = 'Subs1200'  # Ideally this would come from config.py (or similar)
-database_name = 'World_Alliance' # Created in Week 9, Night 1, Exercise 08-Stu_CRUD 
+database_name = 'World_Alliance' 
 connection_string = f'postgresql://{username}:{password}@localhost:5432/{database_name}'
 
 # Connect to the database
@@ -59,6 +60,13 @@ def IndexRoute():
 def alliances_results():
     ''' Query the database for alliances and return the results as a JSON. '''
 
+    # access the org number passed by the selector
+    org_number = request.args.get('org')
+    if org_number is not None:
+        # index the alliance
+        selected_alliance = alliance_list[int(org_number)]
+        print(selected_alliance)
+        
     # Open a session, run the query, and then close the session again
     session = Session(engine)
     results = session.query(alliances.full_name, alliances.num_countries).all()
@@ -130,13 +138,6 @@ def details_results():
 
     #Return the jsonified result. 
     return jsonify(all_details)
-
-@app.route("/alliances")
-def alliances():
-    ''' Query the database for alliances and return the results as a JSON. '''
-    # Open a session, run the query, and then close the session again
-    session = Session(engine)
-    results = session.query(alliances.full_name, alliances.num_countries).all()
 
 
 if __name__ == '__main__':
