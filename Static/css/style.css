@@ -1,17 +1,19 @@
 .jumbotron {
-    text-align: center;
+    position: relative; 
+    top: 20px; 
+    dtext-align: center;
+    color: white;
+    text-shadow:2px 1px grey;
+    vertical-align: bottom
 }
-
 .table-striped {
     text-align: left;
     border: 1px solid blue;
     height: 50px
 }
-
 .navbar-brand {
     background-color: lightgreen
 }
-
 body {
     background-color: lightcyan;
 }
