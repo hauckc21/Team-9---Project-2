@@ -12,10 +12,10 @@ CREATE TABLE countries (
    population FLOAT );
 	
 CREATE TABLE details (
+  details_id serial PRIMARY KEY,
   alliances_id INT NOT NULL,
   countries_id INT NOT NULL,
 	
-  PRIMARY KEY ( alliances_id, countries_id),
   FOREIGN KEY (alliances_id)
       REFERENCES alliances (alliances_id),
   FOREIGN KEY (countries_id)
