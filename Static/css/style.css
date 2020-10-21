@@ -4,7 +4,13 @@
     dtext-align: center;
     color: white;
     text-shadow:2px 1px grey;
-    vertical-align: bottom
+    vertical-align: bottom;
+    background-image: url("../Static/images/G20-Summit-Communique-Flags.jpg");
+    background-size: cover;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-weight: 200;
 }
 .table-striped {
     text-align: left;
