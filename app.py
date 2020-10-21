@@ -11,7 +11,7 @@ from sqlalchemy import create_engine
 
 # Define the database connection parameters
 username = 'postgres'  # Ideally this would come from config.py (or similar)
-password = 'iowaiowa'  # Ideally this would come from config.py (or similar)
+password = 'Subs1200'  # Ideally this would come from config.py (or similar)
 database_name = 'World_Alliance' # Created in Week 9, Night 1, Exercise 08-Stu_CRUD 
 connection_string = f'postgresql://{username}:{password}@localhost:5432/{database_name}'
 
@@ -26,6 +26,13 @@ alliances = base.classes.alliances
 countries = base.classes.countries
 details = base.classes.details
 
+# Get Alliance_List
+session = Session(engine)
+alliance_list = session.query(alliances.full_name).all()
+session.close()
+
+# convert to list from list of tuples
+alliance_list = [i[0] for i in alliance_list]
 
 # Instantiate the Flask application. (Chocolate cake recipe.)
 # This statement is required for Flask to do its job. 
@@ -45,7 +52,7 @@ def IndexRoute():
     ''' This function runs when the browser loads the index route. 
         Note that the html file must be located in a folder called templates. '''
 
-    webpage = render_template("index.html")
+    webpage = render_template("index.html", alliance_list=alliance_list)
     return webpage
 
 @app.route("/alliances")
