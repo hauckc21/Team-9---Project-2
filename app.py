@@ -2,6 +2,7 @@
 from flask import Flask
 from flask import render_template 
 from flask import jsonify
+from flask import request
 
 # Import the functions we need from SQL Alchemy
 import sqlalchemy
@@ -11,8 +12,8 @@ from sqlalchemy import create_engine
 
 # Define the database connection parameters
 username = 'postgres'  # Ideally this would come from config.py (or similar)
-password = 'iowaiowa'  # Ideally this would come from config.py (or similar)
-database_name = 'World_Alliance' # Created in Week 9, Night 1, Exercise 08-Stu_CRUD 
+password = 'Subs1200'  # Ideally this would come from config.py (or similar)
+database_name = 'World_Alliance' 
 connection_string = f'postgresql://{username}:{password}@localhost:5432/{database_name}'
 
 # Connect to the database
@@ -26,6 +27,13 @@ alliances = base.classes.alliances
 countries = base.classes.countries
 details = base.classes.details
 
+# Get Alliance_List
+session = Session(engine)
+alliance_list = session.query(alliances.full_name).all()
+session.close()
+
+# convert to list from list of tuples
+alliance_list = [i[0] for i in alliance_list]
 
 # Instantiate the Flask application. (Chocolate cake recipe.)
 # This statement is required for Flask to do its job. 
@@ -45,13 +53,20 @@ def IndexRoute():
     ''' This function runs when the browser loads the index route. 
         Note that the html file must be located in a folder called templates. '''
 
-    webpage = render_template("index.html")
+    webpage = render_template("index.html", alliance_list=alliance_list)
     return webpage
 
 @app.route("/alliances")
 def alliances_results():
     ''' Query the database for alliances and return the results as a JSON. '''
 
+    # access the org number passed by the selector
+    org_number = request.args.get('org')
+    if org_number is not None:
+        # index the alliance
+        selected_alliance = alliance_list[int(org_number)]
+        print(selected_alliance)
+        
     # Open a session, run the query, and then close the session again
     session = Session(engine)
     results = session.query(alliances.full_name, alliances.num_countries).all()
@@ -123,13 +138,6 @@ def details_results():
 
     #Return the jsonified result. 
     return jsonify(all_details)
-
-@app.route("/alliances")
-def alliances():
-    ''' Query the database for alliances and return the results as a JSON. '''
-    # Open a session, run the query, and then close the session again
-    session = Session(engine)
-    results = session.query(alliances.full_name, alliances.num_countries).all()
 
 
 if __name__ == '__main__':
