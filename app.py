@@ -11,7 +11,7 @@ from sqlalchemy import create_engine
 
 # Define the database connection parameters
 username = 'postgres'  # Ideally this would come from config.py (or similar)
-password = 'Jahpeople'  # Ideally this would come from config.py (or similar)
+password = 'iowaiowa'  # Ideally this would come from config.py (or similar)
 database_name = 'World_Alliance' # Created in Week 9, Night 1, Exercise 08-Stu_CRUD 
 connection_string = f'postgresql://{username}:{password}@localhost:5432/{database_name}'
 
@@ -21,11 +21,11 @@ base = automap_base()
 base.prepare(engine, reflect=True)
 base.classes.keys()
 
-
 # Choose the table we wish to use
 alliances = base.classes.alliances
 countries = base.classes.countries
 details = base.classes.details
+
 
 # Instantiate the Flask application. (Chocolate cake recipe.)
 # This statement is required for Flask to do its job. 
@@ -124,7 +124,13 @@ def details_results():
     #Return the jsonified result. 
     return jsonify(all_details)
 
+@app.route("/alliances")
+def alliances():
+    ''' Query the database for alliances and return the results as a JSON. '''
+    # Open a session, run the query, and then close the session again
+    session = Session(engine)
+    results = session.query(alliances.full_name, alliances.num_countries).all()
+
 
 if __name__ == '__main__':
     app.run(debug=True)
-
