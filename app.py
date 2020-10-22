@@ -64,13 +64,31 @@ def IndexRoute():
 
     session = Session(engine)
      # query for matching alliance
-    results = session.query(alliances.full_name, alliances.num_countries).filter(
+    results = session.query(
+        alliances.full_name, alliances.num_countries,).filter(
         alliances.full_name == selected_alliance).all()
+    # package alliance data
+    alliance_details = {'full_name': selected_alliance, 'num_countries': results[0][1]}
+
+    # get country table for a selected_alliance
+    results = session.query(
+            countries
+        ).filter(
+            alliances.full_name == selected_alliance
+        ).filter(
+            details.alliances_id == alliances.alliances_id
+        ).filter(
+            countries.countries_id == details.countries_id
+        ).all()
+
     session.close()
 
-    selected_alliance = {'full_name': selected_alliance, 'num_countries': results[0][1]}
-
-    webpage = render_template("index.html", alliance_list=alliance_list, selected_alliance=selected_alliance)
+    country_details= [{'name': country.name, 
+    'region': country.region, 
+    'area': country.area,
+    'population': country.population} for country in results]   
+    print(country_details)
+    webpage = render_template("index.html", alliance_list=alliance_list, selected_alliance=alliance_details, country_details=country_details)
     return webpage
 
 @app.route("/alliances")
