@@ -84,11 +84,16 @@ def IndexRoute():
     session.close()
 
     country_details= [{'name': country.name, 
-    'region': country.region, 
-    'area': country.area,
-    'population': country.population} for country in results]   
-    print(country_details)
-    webpage = render_template("index.html", alliance_list=alliance_list, selected_alliance=alliance_details, country_details=country_details)
+        'region': country.region, 
+        'area': country.area,
+        'population': country.population} 
+        for country in results]   
+
+    webpage = render_template("index.html", 
+        alliance_list=alliance_list, 
+        selected_alliance=alliance_details, 
+        country_details=country_details)
+        
     return webpage
 
 @app.route("/alliances")
