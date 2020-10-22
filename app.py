@@ -20,7 +20,6 @@ connection_string = f'postgresql://{username}:{password}@localhost:5432/{databas
 engine = create_engine(connection_string)
 base = automap_base()
 base.prepare(engine, reflect=True)
-base.classes.keys()
 
 # Choose the table we wish to use
 alliances = base.classes.alliances
@@ -52,20 +51,31 @@ def TestRoute():
 def IndexRoute():
     ''' This function runs when the browser loads the index route. 
         Note that the html file must be located in a folder called templates. '''
+    # Check for arguments
+    if request.args:
+        # access the org number passed by the selector
+        org_number = request.args.get('org')
+        if org_number is not None:
+            # index the alliance
+            selected_alliance = alliance_list[int(org_number)]
+    else:
+        # default values
+        selected_alliance = alliance_list[0]
 
-    webpage = render_template("index.html", alliance_list=alliance_list)
+    session = Session(engine)
+     # query for matching alliance
+    results = session.query(alliances.full_name, alliances.num_countries).filter(
+        alliances.full_name == selected_alliance).all()
+    session.close()
+
+    selected_alliance = {'full_name': selected_alliance, 'num_countries': results[0][1]}
+
+    webpage = render_template("index.html", alliance_list=alliance_list, selected_alliance=selected_alliance)
     return webpage
 
 @app.route("/alliances")
 def alliances_results():
     ''' Query the database for alliances and return the results as a JSON. '''
-
-    # access the org number passed by the selector
-    org_number = request.args.get('org')
-    if org_number is not None:
-        # index the alliance
-        selected_alliance = alliance_list[int(org_number)]
-        print(selected_alliance)
         
     # Open a session, run the query, and then close the session again
     session = Session(engine)

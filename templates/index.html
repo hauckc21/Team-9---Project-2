@@ -34,7 +34,7 @@
                                 </button>
                                 <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" name='org'>
                                     {% for alliance in alliance_list %}
-                                        <a class="dropdown-item" href='/alliances?org={{ loop.index0 }}'>{{ alliance }}</a>
+                                        <a class="dropdown-item" href='/?org={{ loop.index0 }}'>{{ alliance }}</a>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -54,14 +54,14 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="row">ASEAN</th>
+                    <th scope="row">{{ selected_alliance.full_name }}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <th scope="row"></th>
                     <td>Total Member States</td>
-                    <td>56</td>
+                    <td>{{ selected_alliance.num_countries }}</td>
                 </tr>
                 <tr>
                     <th scope="row"></th>
@@ -72,11 +72,6 @@
                     <th scope="row"></th>
                     <td>Total Population</td>
                     <td>5.6 Million</td>
-                </tr>
-                <tr>
-                    <th scope="row"></th>
-                    <td>Year Founded</td>
-                    <td>1965</td>
                 </tr>
             </tbody>
         </table>
