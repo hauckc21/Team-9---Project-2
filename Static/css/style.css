@@ -21,11 +21,17 @@
     background-color: lightgreen
 }
 body {
-    background-color: lightcyan;
+    background-color: white;
 }
 
 .scrollable-menu {
     height: auto;
     max-height: 200px;
     overflow-x: hidden;
+}
+
+#chart{
+    width: 500px;
+    height: 500px;
+    margin-left: 600px;
 }
