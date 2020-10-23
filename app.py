@@ -12,7 +12,7 @@ from sqlalchemy import create_engine
 
 # Define the database connection parameters
 username = 'postgres'  # Ideally this would come from config.py (or similar)
-password = 'Subs1200'  # Ideally this would come from config.py (or similar)
+password = 'password'  # Ideally this would come from config.py (or similar)
 database_name = 'World_Alliance' 
 connection_string = f'postgresql://{username}:{password}@localhost:5432/{database_name}'
 

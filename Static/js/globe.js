@@ -5,9 +5,10 @@ const config = {
     verticalTilt: -30,
     horizontalTilt: 0
 }
-let locations = [];
+let data = [];
 const svg = d3.select('svg')
-    .attr('width', width).attr('height', height);
+    .attr('width', width).attr('height', height)
+    .style("opacity", ".3");
 const markerGroup = svg.append('g');
 const projection = d3.geoOrthographic();
 const initialScale = projection.scale();
@@ -21,7 +22,7 @@ enableRotation();
 function drawGlobe() {
     d3.queue()
         .defer(d3.json, 'https://gist.githubusercontent.com/mbostock/4090846/raw/d534aba169207548a8a3d670c9c2cc719ff05c47/world-110m.json')
-        // .defer(d3.json, 'locations.json')
+        // .defer(d3.json, 'data.js')
         .await((error, worldData, locationData) => {
             svg.selectAll(".segment")
                 .data(topojson.feature(worldData, worldData.objects.countries).features)
@@ -30,9 +31,9 @@ function drawGlobe() {
                 .attr("d", path)
                 .style("stroke", "#888")
                 .style("stroke-width", "1px")
-                .style("fill", (d, i) => '#e5e5e5')
-                .style("opacity", ".6");
-                locations = locationData;
+                .style("fill", (d, i) => '#9ACD32')
+                .style("opacity", ".8");
+                locations = data;
                 drawMarkers();
         });
 }
@@ -53,12 +54,13 @@ function enableRotation() {
     d3.timer(function (elapsed) {
         projection.rotate([config.speed * elapsed - 120, config.verticalTilt, config.horizontalTilt]);
         svg.selectAll("path").attr("d", path);
+        drawMarkers();
     });
 }
 
 function drawMarkers() {
     const markers = markerGroup.selectAll('circle')
-        .data(locations);
+        .data(data);
     markers
         .enter()
         .append('circle')
@@ -66,7 +68,7 @@ function drawMarkers() {
         .attr('cx', d => projection([d.longitude, d.latitude])[0])
         .attr('cy', d => projection([d.longitude, d.latitude])[1])
         .attr('fill', d => {
-            const coordinate = [d.longitude, d.latitude];
+            const coordinate = [d.CapitalLongitude, d.CapitalLatitude];
             gdistance = d3.geoDistance(coordinate, projection.invert(center));
             return gdistance > 1.57 ? 'none' : 'steelblue';
         })
