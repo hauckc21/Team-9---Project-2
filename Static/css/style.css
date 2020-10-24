@@ -29,3 +29,9 @@ body {
     max-height: 200px;
     overflow-x: hidden;
 }
+
+#chart{
+    width: 500px;
+    height: 500px;
+    margin-left: 600px;
+}
