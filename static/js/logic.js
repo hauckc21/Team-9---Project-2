@@ -1,8 +1,11 @@
 // API key (MapBox default public token)
 const API_KEY = "pk.eyJ1IjoiY29sbGVlbjU0NyIsImEiOiJja2Z5YzFrc2ExbDBpMzFxcWc4NHpsZ2ZtIn0.etuB1olIeSofH9wCvn6aPA";
 
-// source = "/static/data/countries.geojson"
+// current alliance info
+var selected_countries = country_details.map(country => country.name)
+
 source = "/static/data/locations.json"
+
 
 var grayMap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
@@ -59,81 +62,15 @@ var overlaysMap={
 // Add a Control to the Map
 L.control.layers(base_map,overlaysMap).addTo(myMap);
 
-source = "/static/data/locations.json"(source,function(countryData)
+source = d3.json(source,function(countryData)
 {
-    console.log(countryData.features)
-// =====================================================
+  var countries = countryData.map(country => country.CountryName);
+  var latitudes = countryData.map(country => country.CapitalLatitude);
+  var longitudes = countryData.map(country => country.CapitalLongitude);
 
-// Set Marker Color Based on Earthquake Magnitude
-// function getColor(mag) {
-//     if (mag >= 5) {
-//         return "rgb(240, 107, 107)" 
-//     } else {
-//         if (mag > 4) {
-//             return "rgb(240, 167, 107)"
-//         } else {
-//             if (mag > 3) {
-//                 return "rgb(243, 186, 77)"
-//             } else {
-//                 if (mag > 2) {
-//                     return "rgb(243, 219, 77)"
-//                 } else {
-//                     if (mag > 1) {
-//                         return "rgb(226, 243, 77)"
-//                     } else {
-//                         return "rgb(183, 243, 77)"
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// };
-
-// // Set Marker Size
-// function markerSize(mag) {
-//     if (mag===0){
-//         return 1;
-//     }
-    
-//     return mag*4;
-// }
-
-// function marker (features){
-//     return{
-//         fillOpacity:1,
-//         opacity:1,
-//         weight: 0.6,
-//         fillColor: getColor(features.properties.mag),
-//         color: "black",
-//         stroke: true,
-//         radius: markerSize(features.properties.mag)
-
-//     };
-// }
-// L.geoJson(countryData,{
-//     pointToLayer:function(features,latlng){
-//         return L.circleMarker(latlng);
-//     },
-//     style: marker,
-//     onEachFeature: function(features, layer){
-//         layer.bindPopup("<h4>"+"Magnitude:"+features.properties.mag+"<br>Location:"+features.properties.place+"</h4>");
-//     }
-// }).addTo(myMap);
-
-    // Create Map Legend
-    // var legend=L.control({position:"bottomright"});
-    // legend.onAdd=function (){
-    //     var div=L.DomUtil.create("div","info legend");
-    //     var colorLabels=[1, 2, 3, 4, 5, 6];
-    //     var colors=["lightgreen","yellow","orange","orangered","red","darkred"];
-        
-    //     // Loop Through and Generate Labels with Colors
-    //     for (var i=0;i<colorLabels.length;i++){
-    //     div.innerHTML+="<i style='background:"+colors[i]+"'></i>"+colorLabels[i]+
-    //     (colorLabels[i+1] ? "&ndash;"+colorLabels[i+1]+"<br>":"+");
-    // }
-    // return div;
-    // };
-    // legend.addTo(myMap);
-
-    });
+  for (i=0; i < countries.length; i++){
+    if (selected_countries.includes(countries[i])){
+      L.marker([latitudes[i],longitudes[i]]).addTo(myMap);
+    }
+  }  
+});
