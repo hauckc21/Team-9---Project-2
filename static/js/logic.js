@@ -55,12 +55,8 @@ grayMap.addTo(myMap);
 // Create Country (formerly Earthquake) variables
 var countries=new L.LayerGroup();
 
-// Variable Overlays
-var overlaysMap={
-    "Countries":countries
-};
 // Add a Control to the Map
-L.control.layers(base_map,overlaysMap).addTo(myMap);
+L.control.layers(base_map).addTo(myMap);
 
 source = d3.json(source,function(countryData)
 {
