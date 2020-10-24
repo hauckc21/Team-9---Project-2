@@ -19,7 +19,10 @@ var options = {
         type: 'pie'
     },
     series: Object.values(sorted_counts),
-    labels: Object.keys(sorted_counts)
+    labels: Object.keys(sorted_counts),
+    title: {
+        text: 'Region Representation'
     }
+}
 var chart = new ApexCharts(document.querySelector("#chart"), options);
 chart.render();
