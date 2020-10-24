@@ -39,7 +39,7 @@
             <li class="nav-item dropdown">
                 <form method="post">
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Organizations
                         </button>
@@ -60,6 +60,7 @@
       <!-- The div that holds our map -->
       <div class="col-12" id="mapid"></div>
     </div>
+    <br>
     <div class="row">
       <div class="col-6">
         <!-- summary statistics table -->
@@ -71,17 +72,14 @@
           </thead>
           <tbody>
               <tr>
-                  <th scope="row"></th>
                   <td>Total Member States</td>
                   <td>{{ selected_alliance.num_countries }}</td>
               </tr>
               <tr>
-                  <th scope="row"></th>
                   <td>Total Land Mass (km²)</td>
                   <td>{{ selected_alliance.area }}</td>
               </tr>
               <tr>
-                  <th scope="row"></th>
                   <td>Total Population (million)</td>
                   <td>{{ selected_alliance.population }}</td>
               </tr>

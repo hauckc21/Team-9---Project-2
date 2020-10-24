@@ -54,36 +54,17 @@ header .overlay {
     height: 60%;
 }
 
-/* .jumbotron {
-    position: relative; 
-    top: 20px; 
-    text-align: center;
-    color: white;
-    text-shadow:2px 1px grey;
-    vertical-align: bottom;
-    background-image: url("../images/G20-Summit-Communique-Flags.jpg");
-    background-size: cover;
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    font-weight: 200;
-} */
 .table-striped {
     text-align: left;
-    border: 1px solid blue;
     height: 50px;
     display: inline-table;
     float:left;
+    border-collapse: collapse;
+    outline: 1px solid black;
+    overflow: hidden;
 }
-/* .navbar-brand {
-    background-color: lightgreen
-} */
-/* ====================================================================== */
-/* CB: Thurs (8/22) Modified Body, #mapid, legend, legend i, h1 */
+
 body {
-    /* background-image: url(../images/nasa-WKT3TE5AQu0-unsplash-original-size.jpg); */
-    /* opacity: 50%; */
-    /* background-color: lightcyan; */
     padding: 0;
     margin: 0;
 }
@@ -94,6 +75,7 @@ body {
     border-radius: 8px;
     height: 400px;  /* or as desired */
     width: 100%;  /* This means "100% of the width of its container", the .col-md-8 */
+    z-index: 0;
   }
 
 .legend {
@@ -146,4 +128,8 @@ top: 10px;
 height: 100%;
 system: as necessary;
 width: 48% 
+}
+
+.dropdown{
+  z-index: 1;
 }
