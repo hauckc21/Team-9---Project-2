@@ -4,6 +4,14 @@ from flask import render_template
 from flask import jsonify
 from flask import request
 
+
+# EL/CB Added the following:
+from flask import request
+from flask import json
+from flask import url_for
+import os
+
+
 # Import the functions we need from SQL Alchemy
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -12,7 +20,7 @@ from sqlalchemy import create_engine
 
 # Define the database connection parameters
 username = 'postgres'  # Ideally this would come from config.py (or similar)
-password = 'password'  # Ideally this would come from config.py (or similar)
+password = 'iowaiowa'  # Ideally this would come from config.py (or similar)
 database_name = 'World_Alliance' 
 connection_string = f'postgresql://{username}:{password}@localhost:5432/{database_name}'
 
@@ -184,6 +192,16 @@ def details_results():
     #Return the jsonified result. 
     return jsonify(all_details)
 
+# CB: Added flask route for map.html
+@app.route('/map')
+def map():
+    webpage=render_template('map.html')
+    return webpage
+def IndexRoute():
+#     """This function runs when the browser loads the index route"""
+    webpage = render_template('index.html')
+    return webpage
 
 if __name__ == '__main__':
     app.run(debug=True)
+
