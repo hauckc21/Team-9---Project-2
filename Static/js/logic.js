@@ -3,6 +3,7 @@ const API_KEY = "pk.eyJ1IjoiY29sbGVlbjU0NyIsImEiOiJja2Z5YzFrc2ExbDBpMzFxcWc4NHps
 
 // source = "/static/data/countries.geojson"
 source = "/static/data/locations.json"
+
 var grayMap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
     tileSize: 512,
@@ -11,6 +12,8 @@ var grayMap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{
     id: "mapbox/light-v10",
     accessToken: API_KEY
   });
+ 
+
   var satelliteMap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
     tileSize: 512,
@@ -19,6 +22,7 @@ var grayMap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{
     id: "mapbox/satellite-v9",
     accessToken: API_KEY
   });
+
   var outdoorsMap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
     tileSize: 512,
@@ -27,12 +31,14 @@ var grayMap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{
     id: "mapbox/outdoors-v11",
     accessToken: API_KEY
   });
+
 // Create Base Map
 var base_map={
     Grayscale: grayMap,
     Satellite: satelliteMap,
     GlobalBlue:outdoorsMap
 };
+
 // Declare Map Object & set it to Map Element in the DOM
 var myMap = L.map("mapid",{
     center: [40.7, -94.5],
@@ -40,32 +46,25 @@ var myMap = L.map("mapid",{
     layers: [grayMap, satelliteMap, outdoorsMap]
 });
 grayMap.addTo(myMap);
-// CB TO DO: Replace Earthquake variable(s)
-var earthquakes=new L.LayerGroup();
-// Variable Overlay(s)
+
+// =====================================================
+
+// Create Country (formerly Earthquake) variables
+var countries=new L.LayerGroup();
+
+// Variable Overlays
 var overlaysMap={
-     "Earthquakes":earthquakes
+    "Countries":countries
 };
 // Add a Control to the Map
 L.control.layers(base_map,overlaysMap).addTo(myMap);
-// CB TO DO: Replace w/ d3.json by referring to file path
-d3.json(source,function(countryData) {
-    console.log(countryData);
-})
 
+source = "/static/data/locations.json"(source,function(countryData)
+{
+    console.log(countryData.features)
+// =====================================================
 
-for (var i = 0; i <countrydata.length; i++) {
-    var capital = countrydata[i];
-    L.marker(capital.location)
-        .bindPopup
-}
-
-
-
-// // CB: TO DO replace with country population or delete altogether
-// {
-//     console.log(countryData.features)
-// // Set Marker Color Based on Earthquake Magnitude
+// Set Marker Color Based on Earthquake Magnitude
 // function getColor(mag) {
 //     if (mag >= 5) {
 //         return "rgb(240, 107, 107)" 
@@ -90,14 +89,15 @@ for (var i = 0; i <countrydata.length; i++) {
 //     }
 // };
 
-
 // // Set Marker Size
 // function markerSize(mag) {
 //     if (mag===0){
 //         return 1;
 //     }
+    
 //     return mag*4;
 // }
+
 // function marker (features){
 //     return{
 //         fillOpacity:1,
@@ -107,6 +107,7 @@ for (var i = 0; i <countrydata.length; i++) {
 //         color: "black",
 //         stroke: true,
 //         radius: markerSize(features.properties.mag)
+
 //     };
 // }
 // L.geoJson(countryData,{
@@ -118,12 +119,14 @@ for (var i = 0; i <countrydata.length; i++) {
 //         layer.bindPopup("<h4>"+"Magnitude:"+features.properties.mag+"<br>Location:"+features.properties.place+"</h4>");
 //     }
 // }).addTo(myMap);
+
     // Create Map Legend
     // var legend=L.control({position:"bottomright"});
     // legend.onAdd=function (){
     //     var div=L.DomUtil.create("div","info legend");
     //     var colorLabels=[1, 2, 3, 4, 5, 6];
     //     var colors=["lightgreen","yellow","orange","orangered","red","darkred"];
+        
     //     // Loop Through and Generate Labels with Colors
     //     for (var i=0;i<colorLabels.length;i++){
     //     div.innerHTML+="<i style='background:"+colors[i]+"'></i>"+colorLabels[i]+
@@ -132,4 +135,5 @@ for (var i = 0; i <countrydata.length; i++) {
     // return div;
     // };
     // legend.addTo(myMap);
-    // });
+
+    });
