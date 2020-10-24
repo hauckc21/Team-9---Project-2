@@ -44,7 +44,7 @@ var base_map={
 
 // Declare Map Object & set it to Map Element in the DOM
 var myMap = L.map("mapid",{
-    center: [40.7, -94.5],
+    center: [30, 0],
     zoom: 2,
     layers: [grayMap, satelliteMap, outdoorsMap]
 });
@@ -55,12 +55,8 @@ grayMap.addTo(myMap);
 // Create Country (formerly Earthquake) variables
 var countries=new L.LayerGroup();
 
-// Variable Overlays
-var overlaysMap={
-    "Countries":countries
-};
 // Add a Control to the Map
-L.control.layers(base_map,overlaysMap).addTo(myMap);
+L.control.layers(base_map).addTo(myMap);
 
 source = d3.json(source,function(countryData)
 {

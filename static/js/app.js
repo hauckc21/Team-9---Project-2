@@ -1,3 +1,4 @@
+
 // get all regions for given alliance
 var series = country_details.map(country => country.region)
 
