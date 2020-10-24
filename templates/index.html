@@ -34,12 +34,14 @@
                     <li class="nav-item dropdown">
                         <form method="post">
                             <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Organizations
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Organizations
                                 </button>
-                                <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" name='org'>
+                                <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton"
+                                    name='org'>
                                     {% for alliance in alliance_list %}
-                                        <a class="dropdown-item" href='/?org={{ loop.index0 }}'>{{ alliance }}</a>
+                                    <a class="dropdown-item" href='/?org={{ loop.index0 }}'>{{ alliance }}</a>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -93,4 +95,5 @@
         <script src="/static/js/data.js"></script>
         <script src="/static/js/app.js"></script>
         <script src="/static/js/globe.js"></script>
+
 </html>
