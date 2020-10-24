@@ -1,7 +1,7 @@
 header {
   position: relative;
   background-color: black;
-  height: 75vh;
+  height: 50vh;
   min-height: 25rem;
   width: 100%;
   overflow: hidden;
@@ -49,6 +49,11 @@ header .overlay {
 
 /* ============================================ */
 
+.jumbotron {
+    text-align: center;
+    height: 60%;
+}
+
 /* .jumbotron {
     position: relative; 
     top: 20px; 
@@ -63,11 +68,13 @@ header .overlay {
     background-repeat: no-repeat;
     font-weight: 200;
 } */
-/* .table-striped {
+.table-striped {
     text-align: left;
     border: 1px solid blue;
-    height: 50px
-} */
+    height: 50px;
+    display: inline-table;
+    float:left;
+}
 /* .navbar-brand {
     background-color: lightgreen
 } */
@@ -81,14 +88,13 @@ body {
     margin: 0;
 }
 
-#mapid,
-body,
-html {
-  height: 100%;
-  width: 95%;
-  padding: 0;
-  margin: 0
-}
+#mapid {
+    position: relative;
+    border: 1px solid black;
+    border-radius: 8px;
+    height: 400px;  /* or as desired */
+    width: 100%;  /* This means "100% of the width of its container", the .col-md-8 */
+  }
 
 .legend {
   padding: 10px;
@@ -124,5 +130,20 @@ h1 {
 #chart{
   width: 500px;
   height: 500px;
-  margin-left: 600px;
+}
+
+.pie {
+    position: relative;
+    padding: 10px 0;
+    system: as necessary;
+    padding-left: 10px;
+    padding-right: 0;
+}
+.legend {
+position: absolute;
+right: 10px;
+top: 10px;
+height: 100%;
+system: as necessary;
+width: 48% 
 }

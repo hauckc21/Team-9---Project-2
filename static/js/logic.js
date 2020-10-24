@@ -44,7 +44,7 @@ var base_map={
 
 // Declare Map Object & set it to Map Element in the DOM
 var myMap = L.map("mapid",{
-    center: [40.7, -94.5],
+    center: [30, 0],
     zoom: 2,
     layers: [grayMap, satelliteMap, outdoorsMap]
 });
