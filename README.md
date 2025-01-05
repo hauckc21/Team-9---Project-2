@@ -10,7 +10,7 @@
 
 
 ***
-### **`TEAM MEMBERS: Eric Lewiston, Ken Njema, Chris Hauck, Colleen Banzhof`**<br>
+### **`TEAM MEMBERS: Eric Lewiston, Colleen Banzhof, Chris Hauck, Ken Njema`**<br>
 
 ***
 
