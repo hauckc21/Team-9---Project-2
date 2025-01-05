@@ -1,4 +1,4 @@
-# Import the functions we need from flask
+# Import the function we need from flask
 from flask import Flask
 from flask import render_template 
 from flask import jsonify
